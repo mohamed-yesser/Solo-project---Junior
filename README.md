@@ -1,1 +1,1 @@
-# Solo-project---Junior
+# Solo-project-/-Junior
