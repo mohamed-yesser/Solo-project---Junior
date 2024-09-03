@@ -21,6 +21,7 @@ db.User.hasMany(db.Media);
 
 db.Post.hasMany(db.Comment);
 db.Post.hasMany(db.Media);
+db.Post.belongsTo(db.User)
 
 db.Comment.belongsTo(db.User);
 db.Comment.belongsTo(db.Post);
@@ -40,7 +41,10 @@ connection.authenticate()
     });
 
 
+
+
 // connection.sync({ alter: true })
+
 
 
 module.exports = db;

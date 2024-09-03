@@ -3,7 +3,8 @@ module.exports = (connection, DataTypes) => {
     const User = connection.define('User', {
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true  
         },
         age: {
             type: DataTypes.INTEGER,

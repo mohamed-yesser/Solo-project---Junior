@@ -1,4 +1,8 @@
 module.exports = (connection, DataTypes) => {
+
+
+
+    
     const Post = connection.define('Post', {
         title: {
             type: DataTypes.STRING,

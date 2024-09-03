@@ -1,4 +1,6 @@
 module.exports = (connection, DataTypes) => {
+
+    
     const Media = connection.define('Media', {
         
         link: {
@@ -11,5 +13,7 @@ module.exports = (connection, DataTypes) => {
             allowNull: false
         }
     });
+
     return Media;
+    
 };
