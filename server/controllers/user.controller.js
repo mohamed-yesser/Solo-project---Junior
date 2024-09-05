@@ -1,7 +1,7 @@
-const { User } = require('../models');
+const { User , Post , Comment } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const Sequelize = require('sequelize')
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const { name, email, password ,age} = req.body;
-            // Check if the email exists
+            
             const userExists = await User.findOne({
                 where: {email}
             });
@@ -34,6 +34,48 @@ module.exports = {
             
         }
     },
+
+
+     SearchUsers : async (req, res) => {
+        try {
+            const { search } = req.params;
+    
+            if (!search) {
+                return res.status(400).send('Search term is required.');
+            }
+    
+            const users = await User.findAll({
+                where: {
+                    name: {
+                        [Sequelize.Op.like]: `%${search}%`
+                    }
+                },
+                include: [
+                    {
+                        model: Post,
+                        include: [
+                            {
+                                model: Comment
+                            }
+                        ]
+                    }
+                ]
+            });
+    
+         
+            if (users.length > 0) {
+                res.status(200).json(users);
+            } else {
+                res.status(404).send('No users found.');
+            }
+        } catch (err) {
+            
+           console.log(err)
+            res.status(500).send(err);
+        }
+    }
+    
+    ,
 
 
     getAllUsers: async (req, res) => {
@@ -61,6 +103,20 @@ module.exports = {
             res.status(500).send(err);
         }
     },
+
+
+    getUserByEmail : async (req, res) => {
+        try {
+            const user = await User.findOne({ where: { email: req.params.email } });
+           
+                res.status(200).send(user);
+            
+        } catch (err) {
+            console.log(err);
+            res.status(500).send(err);
+        }
+    },
+
 
 
     updateUser: async (req, res) => {
@@ -108,14 +164,14 @@ module.exports = {
             }
     
     
-            // Verify password
+           
             const passwordValid = await bcrypt.compare(password, user.password);
             if (!passwordValid) {
                 return res.status(404).json('Incorrect email and password combination');
             }
     
     
-            // Authenticate user with jwt
+          
             const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_REFRESH_EXPIRATION
             });

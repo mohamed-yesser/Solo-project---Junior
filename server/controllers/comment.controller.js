@@ -47,25 +47,37 @@ module.exports = {
 
 
     updateComment: async (req, res) => {
+        const id = req.params.id;
+    
         try {
-            const comment = await comment.update(req.body);
-                res.status(200).send(comment);
-            
+            const updated = await Comment.update(req.body, {
+                where: { id: id }
+            });
+    
+            res.status(200).send("Comment updated successfully");
         } catch (err) {
             console.log(err);
             res.status(500).send(err);
         }
     },
-
-    deleteComment: async (req, res) => {
+    
+    
+    deleteComment : async (req, res) => {
+        const id = req.params.id;
+        
         try {
-            const comment = await comment.destroy();
+            await Comment.destroy({
+                where: { id: id }
+            });
+    
             res.status(204).send();
-            
         } catch (err) {
             console.log(err);
             res.status(500).send(err);
         }
     }
-};
+
+
+}
+    
 

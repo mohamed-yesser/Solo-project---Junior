@@ -11,3 +11,83 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.cover {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.profile-content {
+  display: flex;
+  flex: 1;
+}
+
+.profile-bio {
+  width: 30%;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-right: 2px solid #ddd;
+}
+
+.profile-pic {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-posts {
+  width: 70%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.new-post-form {
+  margin-bottom: 20px;
+}
+
+.new-post-form input,
+.new-post-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.new-post-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.new-post-form button:hover {
+  background-color: #0056b3;
+}
+
+.posts-list .post {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.posts-list .post h3 {
+  margin-top: 0;
+}
